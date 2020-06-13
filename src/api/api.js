@@ -2,18 +2,19 @@ import axios from "axios";
 
 export function getArticles(){
     return new Promise((resolve, reject) => {
-        axios.get('http://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts')
             .then(res => {
                 resolve(res.data);
             })
             .catch(err => {
+                console.error(err);
                 reject(err);
             })
     })
 }
 export function getArticle(val){
     return new Promise((resolve, reject) => {
-        axios.get('http://jsonplaceholder.typicode.com/posts/' + val)
+        axios.get('/posts/' + val)
             .then(res => {
                 resolve(res.data);
             })
