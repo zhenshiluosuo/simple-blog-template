@@ -10,7 +10,7 @@
             <div>{{article.body}}</div>
         </div>
         <div>
-            <input type="text" id="page_num" v-model="page_num">
+            <span>共{{page_sum_num}}页&nbsp;当前第<input type="text" id="page_num" v-model="page_num">页</span>
         </div>
     </div>
 </template>
@@ -36,6 +36,7 @@
                     this.articles = res;
                     this.show_articles = [...this.articles];
                     this.show_articles = this.show_articles.slice((this.page_num - 1) * 4, this.page_num * 4);
+                    this.page_sum_num = Math.ceil((this.articles.length) / 4);
                     this.finish_flag = true;
                 });
         },
@@ -46,7 +47,7 @@
                 }else if(this.finish_flag){
                     this.show_articles = this.articles.filter(value => value.title.indexOf(val) !== -1);
                 }
-                this.page_sum_num = Math.ceil((this.show_articles.length - 1) / 4) + 1;
+                this.page_sum_num = Math.ceil((this.show_articles.length) / 4);
                 this.page_num = 1;
                 this.show_articles = this.show_articles.slice((this.page_num - 1) * 4, this.page_num * 4);
             },
