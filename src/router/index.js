@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Browse from "../components/Browse";
 import Article from "../components/Article";
+import Login from "../components/Login";
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,12 @@ const routes = [
     name: 'Article',
     component: Article
   },
-]
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  }
+];
 
 const router = new VueRouter({
   mode: 'history',
