@@ -25,7 +25,11 @@
         this.login_display = isActive;
       },
       translateUserInfo: function (userInfo) {
-        alert(userInfo.username + ' ' + userInfo.password);
+        if(userInfo.username === this.$store.state.userInfo.username && userInfo.password === this.$store.state.userInfo.password) {
+          this.$store.state.loginState = true;
+        }else {
+          alert('账号或密码错误！');
+        }
         this.login_display = false;
       },
       closeLoginDiv: function (val) {

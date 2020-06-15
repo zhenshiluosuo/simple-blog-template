@@ -2,11 +2,13 @@
     <div id="header-nav">
         <router-link to="/">博客</router-link> |
         <router-link to="/edit">写博客</router-link> |
-        <span id="login-button" @click="loginActive">登录</span>
+        <span id="login-button" @click="loginActive" v-if="!loginState">登录</span>
+        <span v-else> | 你好！ {{ userInfo.username }} <span @click="changeLoginState"> | 退出登录</span></span>
     </div>
 </template>
 
 <script>
+    import { mapState, mapMutations} from 'vuex'
     export default {
         name: "HeaderNav",
         data() {
@@ -15,11 +17,19 @@
           }
         },
         props: ['login_display'],
+        computed: mapState([
+            // 映射 this.loginState 为 store.state.loginState
+            'loginState',
+            "userInfo"
+        ]),
         methods: {
             loginActive: function () {
                 this.display = !this.display;
                 this.$emit('loginActive', this.display);
-            }
+            },
+            ...mapMutations([
+                'changeLoginState', // 将 `this.changeLoginState()` 映射为 `this.$store.commit('changeLoginState')`
+            ])
         },
         watch:{
             login_display: function (val) {
@@ -42,7 +52,6 @@
     }
 
     span {
-        background: blanchedalmond;
         text-decoration: underline;
     }
 
